@@ -1038,6 +1038,7 @@
           </div>
         </div>
         <div class="field"><label>Current Employment & Duration</label><input type="text" name="currentEmployment"></div>
+        <div class="field"><label>Previous Employment & Duration (If Applicable)</label><input type="text" name="previousEmployment"></div>
         <div class="field"><label>Relevant Training / Professional Certifications</label><input type="text" name="certifications"></div>
       </div>
     </details>
@@ -1369,7 +1370,7 @@ const financialFullWrap = document.getElementById('financialFullWrap');
 const docNoneInput = form.querySelector('input[name="docNone"]');
 form.addEventListener('change', (e) => {
   if (e.target.name === 'financialSupportNeeded') {
-    const needed = e.target.value === 'Yes';
+    const needed = e.target.value === 'No';
     financialFullWrap.style.display = needed ? '' : 'none';
     if (docNoneInput) {
       docNoneInput.checked = !needed;
@@ -1502,7 +1503,7 @@ const PROGRAMME_TYPES = [
   "PhD in Computer Science","PhD in Law","PhD in Arts & Humanities","PhD (Other Discipline)",
   "Other",
 ];
-const DEGREE_LEVELS = ["PhD","Master's","Bachelor's","Language/Preparatory Course" , "Schooling"];
+const DEGREE_LEVELS = ["Bachelor's","Master's","PhD","Language/Preparatory Course","Schooling"];
 const TUITION_RANGES = [
   "Under 5,000 / year","5,000 – 10,000 / year","10,000 – 15,000 / year",
   "15,000 – 20,000 / year","20,000 – 25,000 / year","25,000+ / year",
@@ -1588,6 +1589,7 @@ const FIELD_GROUPS = [
   { title: "Professional Experience", fields: [
     { key:"workExp", label:"Relevant Work Experience" },
     { key:"currentEmployment", label:"Current Employment & Duration" },
+    { key:"previousEmployment", label:"Previous Employment & Duration (If Applicable)" },
     { key:"certifications", label:"Training / Certifications" },
   ]},
   { title: "English Proficiency", fields: [
