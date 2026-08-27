@@ -273,6 +273,55 @@
     color:#fff;
   }
 
+  .checklist-group{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:4px;
+    background:#FCFBF8;
+    margin-bottom:6px;
+  }
+  .checklist-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 10px;
+    border-radius:7px;
+    cursor:pointer;
+    user-select:none;
+    font-size:.88rem;
+    color:var(--ink);
+  }
+  .checklist-item:hover{background:#F1EFE7;}
+  .checklist-item input{display:none;}
+  .checklist-item .check-box{
+    flex:none;
+    width:18px;height:18px;
+    border:1.5px solid var(--line);
+    border-radius:5px;
+    background:#fff;
+    position:relative;
+  }
+  .checklist-item input:checked ~ .check-box{
+    background:var(--navy);
+    border-color:var(--navy);
+  }
+  .checklist-item input:checked ~ .check-box::after{
+    content:"";
+    position:absolute;
+    left:5px; top:1px;
+    width:5px; height:10px;
+    border:solid #fff;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .checklist-item input:checked ~ .check-label{
+    color:var(--navy);
+    font-weight:600;
+  }
+
   .progblock{
     border:1px dashed var(--line);
     border-radius:8px;
@@ -1230,7 +1279,7 @@
           <input type="text" placeholder="Others (specify)" name="incomeSourceOthers">
         </div>
 
-        <div class="sub">Secondary Sponsor (if applicable)</div>
+       
         <div class="field"><label>Secondary Sponsor & Relation</label><input type="text" name="sponsor2Name"></div>
         <div class="row2">
           <div class="field"><label>Occupation</label><input type="text" name="sponsor2Occupation"></div>
@@ -1256,19 +1305,19 @@
     <details class="section">
       <summary data-num="3.3">Financial Documents Available <span class="chev">▶</span></summary>
       <div class="section-body">
-        <div class="choice-group" data-group="finDocs" data-multi="true">
-          <label class="choice"><input type="checkbox" name="docStudentBank" value="1">Student Bank Statement</label>
-          <label class="choice"><input type="checkbox" name="docSponsorBank" value="1">Sponsor Bank Statement</label>
-          <label class="choice"><input type="checkbox" name="docSolvency" value="1">Bank Solvency Certificate</label>
-          <label class="choice"><input type="checkbox" name="docFixedDeposit" value="1">Fixed Deposit Certificate</label>
-          <label class="choice"><input type="checkbox" name="docSalarySlip" value="1">Salary/Pay Slip Certificate</label>
-          <label class="choice"><input type="checkbox" name="docEmployment" value="1">Employment Certificate</label>
-          <label class="choice"><input type="checkbox" name="docTradeLicense" value="1">Trade License</label>
-          <label class="choice"><input type="checkbox" name="docTin" value="1">TIN Certificate & Tax Documents</label>
-          <label class="choice"><input type="checkbox" name="docProperty" value="1">Property Documents</label>
-          <label class="choice"><input type="checkbox" name="docRental" value="1">Rental Income Documents</label>
-          <label class="choice"><input type="checkbox" name="docOther" value="1">Other Supporting Financial Documents</label>
-          <label class="choice"><input type="checkbox" name="docNone" value="1">No Financial Documents</label>
+        <div class="checklist-group" data-group="finDocs" data-multi="true">
+          <label class="checklist-item"><input type="checkbox" name="docStudentBank" value="1"><span class="check-box"></span><span class="check-label">Student Bank Statement</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docSponsorBank" value="1"><span class="check-box"></span><span class="check-label">Sponsor Bank Statement</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docSolvency" value="1"><span class="check-box"></span><span class="check-label">Bank Solvency Certificate</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docFixedDeposit" value="1"><span class="check-box"></span><span class="check-label">Fixed Deposit Certificate</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docSalarySlip" value="1"><span class="check-box"></span><span class="check-label">Salary/Pay Slip Certificate</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docEmployment" value="1"><span class="check-box"></span><span class="check-label">Employment Certificate</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docTradeLicense" value="1"><span class="check-box"></span><span class="check-label">Trade License</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docTin" value="1"><span class="check-box"></span><span class="check-label">TIN Certificate & Tax Documents</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docProperty" value="1"><span class="check-box"></span><span class="check-label">Property Documents</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docRental" value="1"><span class="check-box"></span><span class="check-label">Rental Income Documents</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docOther" value="1"><span class="check-box"></span><span class="check-label">Other Supporting Financial Documents</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docNone" value="1"><span class="check-box"></span><span class="check-label">No Financial Documents</span></label>
         </div>
       </div>
     </details>
