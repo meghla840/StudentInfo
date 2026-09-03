@@ -1129,6 +1129,9 @@
           <div class="field" id="moduleWrap3"><label id="moduleLabel3">Writing</label><input type="text" name="moduleWriting"></div>
           <div class="field" id="moduleWrap4"><label id="moduleLabel4">Speaking</label><input type="text" name="moduleSpeaking"></div>
         </div>
+        <div class="field" id="testDateWrap" style="display:none;">
+          <label>Test Date (Date Taken)</label><input type="date" name="testDate">
+        </div>
         <div class="field" id="appearingDateWrap" style="display:none;">
           <label>Appearing Date (Exam Date)</label><input type="date" name="appearingDate">
         </div>
@@ -1326,22 +1329,55 @@
       <div class="section-body">
 
         <div class="sub">Savings Account</div>
-        <div class="row2">
-          <div class="field"><label>Balance Available (BDT)</label><input type="text" name="savingsAmount"></div>
-          <div class="field"><label>Held Since / Duration</label><input type="text" name="savingsTime"></div>
+        <div id="savingsContainer">
+          <div class="row2 savings-row">
+            <div class="field"><label>Balance Available (BDT)</label><input type="text" name="savingsAmount"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="savingsTime"></div>
+          </div>
+          <div class="row2 savings-row" style="display:none;">
+            <div class="field"><label>Balance Available (BDT)</label><input type="text" name="savingsAmount2"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="savingsTime2"></div>
+          </div>
+          <div class="row2 savings-row" style="display:none;">
+            <div class="field"><label>Balance Available (BDT)</label><input type="text" name="savingsAmount3"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="savingsTime3"></div>
+          </div>
         </div>
+        <button type="button" class="btn-outline" id="addSavingsBtn" style="margin:2px 0 14px;">+ Add Savings Account</button>
 
         <div class="sub">Current Account</div>
-        <div class="row2">
-          <div class="field"><label>Balance Available (BDT)</label><input type="text" name="currentAccountAmount"></div>
-          <div class="field"><label>Held Since / Duration</label><input type="text" name="currentAccountTime"></div>
+        <div id="currentAccountContainer">
+          <div class="row2 current-account-row">
+            <div class="field"><label>Balance Available (BDT)</label><input type="text" name="currentAccountAmount"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="currentAccountTime"></div>
+          </div>
+          <div class="row2 current-account-row" style="display:none;">
+            <div class="field"><label>Balance Available (BDT)</label><input type="text" name="currentAccountAmount2"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="currentAccountTime2"></div>
+          </div>
+          <div class="row2 current-account-row" style="display:none;">
+            <div class="field"><label>Balance Available (BDT)</label><input type="text" name="currentAccountAmount3"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="currentAccountTime3"></div>
+          </div>
         </div>
+        <button type="button" class="btn-outline" id="addCurrentAccountBtn" style="margin:2px 0 14px;">+ Add Current Account</button>
 
         <div class="sub">Fixed Deposit (FD)</div>
-        <div class="row2">
-          <div class="field"><label>Amount (BDT)</label><input type="text" name="fdAmount"></div>
-          <div class="field"><label>Held Since / Duration</label><input type="text" name="fdTime"></div>
+        <div id="fdContainer">
+          <div class="row2 fd-row">
+            <div class="field"><label>Amount (BDT)</label><input type="text" name="fdAmount"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="fdTime"></div>
+          </div>
+          <div class="row2 fd-row" style="display:none;">
+            <div class="field"><label>Amount (BDT)</label><input type="text" name="fdAmount2"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="fdTime2"></div>
+          </div>
+          <div class="row2 fd-row" style="display:none;">
+            <div class="field"><label>Amount (BDT)</label><input type="text" name="fdAmount3"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="fdTime3"></div>
+          </div>
         </div>
+        <button type="button" class="btn-outline" id="addFdBtn" style="margin:2px 0 14px;">+ Add Fixed Deposit</button>
 
         <div class="sub">National Savings Certificate</div>
         <div class="row2">
@@ -1391,12 +1427,24 @@
           <label class="checklist-item"><input type="checkbox" name="docEmployment" value="1"><span class="check-box"></span><span class="check-label">Employment Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docTradeLicense" value="1"><span class="check-box"></span><span class="check-label">Trade License</span></label>
           <div class="field" id="tradeLicenseGapWrap" style="display:none;margin:2px 0 8px;">
-            <label>Trade License — Gap (Duration)</label><input type="text" name="tradeLicenseGap" placeholder="e.g. 2 years">
+            <label>Trade License — Gap (Duration)</label>
+            <select name="tradeLicenseGap">
+              <option value="">Select duration</option>
+              <option value="1-3 years">1-3 years</option>
+              <option value="3-6 years">3-6 years</option>
+              <option value="6+ years">6+ years</option>
+            </select>
           </div>
           <label class="checklist-item"><input type="checkbox" name="docTin" value="1"><span class="check-box"></span><span class="check-label">TIN Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docTax" value="1"><span class="check-box"></span><span class="check-label">Tax Certificate</span></label>
           <div class="field" id="taxCertificateGapWrap" style="display:none;margin:2px 0 8px;">
-            <label>Tax Certificate — Gap (Number of Years)</label><input type="number" min="0" step="1" name="taxCertificateGap">
+            <label>Tax Certificate — Gap (Duration)</label>
+            <select name="taxCertificateGap">
+              <option value="">Select duration</option>
+              <option value="1-3 years">1-3 years</option>
+              <option value="3-6 years">3-6 years</option>
+              <option value="6+ years">6+ years</option>
+            </select>
           </div>
           <label class="checklist-item"><input type="checkbox" name="docProperty" value="1"><span class="check-box"></span><span class="check-label">Property Documents</span></label>
           <label class="checklist-item"><input type="checkbox" name="docRental" value="1"><span class="check-box"></span><span class="check-label">Rental Income Documents</span></label>
@@ -1514,11 +1562,14 @@ form.addEventListener('change', (e) => {
   }
 });
 
-// --- Appearing test date toggle ---
+// --- Appearing test date toggle / Test date toggle ---
 const appearingDateWrap = document.getElementById('appearingDateWrap');
+const testDateWrap = document.getElementById('testDateWrap');
 form.addEventListener('change', (e) => {
   if (e.target.name === 'testTaken') {
-    appearingDateWrap.style.display = (e.target.value === 'Appearing') ? '' : 'none';
+    const val = e.target.value;
+    appearingDateWrap.style.display = (val === 'Appearing') ? '' : 'none';
+    testDateWrap.style.display = (val && val !== 'Appearing' && val !== 'Not Taken') ? '' : 'none';
   }
 });
 
@@ -1609,6 +1660,48 @@ addPrevEmploymentBtn.addEventListener('click', () => {
   }
 });
 
+// --- add multiple savings account rows ---
+const savingsRows = Array.from(document.querySelectorAll('#savingsContainer .savings-row'));
+let savingsShown = 1;
+const addSavingsBtn = document.getElementById('addSavingsBtn');
+addSavingsBtn.addEventListener('click', () => {
+  if (savingsShown < savingsRows.length) {
+    savingsRows[savingsShown].style.display = '';
+    savingsShown++;
+  }
+  if (savingsShown >= savingsRows.length) {
+    addSavingsBtn.style.display = 'none';
+  }
+});
+
+// --- add multiple current account rows ---
+const currentAccountRows = Array.from(document.querySelectorAll('#currentAccountContainer .current-account-row'));
+let currentAccountShown = 1;
+const addCurrentAccountBtn = document.getElementById('addCurrentAccountBtn');
+addCurrentAccountBtn.addEventListener('click', () => {
+  if (currentAccountShown < currentAccountRows.length) {
+    currentAccountRows[currentAccountShown].style.display = '';
+    currentAccountShown++;
+  }
+  if (currentAccountShown >= currentAccountRows.length) {
+    addCurrentAccountBtn.style.display = 'none';
+  }
+});
+
+// --- add multiple fixed deposit rows ---
+const fdRows = Array.from(document.querySelectorAll('#fdContainer .fd-row'));
+let fdShown = 1;
+const addFdBtn = document.getElementById('addFdBtn');
+addFdBtn.addEventListener('click', () => {
+  if (fdShown < fdRows.length) {
+    fdRows[fdShown].style.display = '';
+    fdShown++;
+  }
+  if (fdShown >= fdRows.length) {
+    addFdBtn.style.display = 'none';
+  }
+});
+
 function showToast(msg, isErr){
   toast.textContent = msg;
   toast.className = 'toast show' + (isErr ? ' err' : '');
@@ -1664,6 +1757,7 @@ submitBtn.addEventListener('click', async () => {
     document.querySelectorAll('.choice.active, .choice.gold-active').forEach(c => c.classList.remove('active','gold-active'));
     financialFullWrap.style.display = 'none';
     appearingDateWrap.style.display = 'none';
+    testDateWrap.style.display = 'none';
     resetModuleLabels();
     travelCountryWrap.style.display = 'none';
     travelCountryListWrap.style.display = 'none';
@@ -1673,6 +1767,15 @@ submitBtn.addEventListener('click', async () => {
     prevEmploymentRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
     prevEmploymentShown = 1;
     addPrevEmploymentBtn.style.display = '';
+    savingsRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+    savingsShown = 1;
+    addSavingsBtn.style.display = '';
+    currentAccountRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+    currentAccountShown = 1;
+    addCurrentAccountBtn.style.display = '';
+    fdRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+    fdShown = 1;
+    addFdBtn.style.display = '';
     goToPage(1);
   }catch(err){
     showToast('✗ Could not send — check internet/URL', true);
@@ -1687,6 +1790,7 @@ resetBtn.addEventListener('click', () => {
   document.querySelectorAll('.choice.active, .choice.gold-active').forEach(c => c.classList.remove('active','gold-active'));
   financialFullWrap.style.display = 'none';
   appearingDateWrap.style.display = 'none';
+    testDateWrap.style.display = 'none';
   resetModuleLabels();
   travelCountryWrap.style.display = 'none';
   travelCountryListWrap.style.display = 'none';
@@ -1696,6 +1800,15 @@ resetBtn.addEventListener('click', () => {
   prevEmploymentRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
   prevEmploymentShown = 1;
   addPrevEmploymentBtn.style.display = '';
+  savingsRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+  savingsShown = 1;
+  addSavingsBtn.style.display = '';
+  currentAccountRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+  currentAccountShown = 1;
+  addCurrentAccountBtn.style.display = '';
+  fdRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+  fdShown = 1;
+  addFdBtn.style.display = '';
   document.querySelectorAll('.prog-state').forEach(sel => fillSelect(sel, [], 'Select country first'));
   document.querySelectorAll('.prog-city').forEach(sel => fillSelect(sel, [], 'Select country first'));
   goToPage(1);
@@ -1852,6 +1965,7 @@ const FIELD_GROUPS = [
     { key:"moduleReading", label:"Module 2 Score (e.g. Reading/Comprehension)" },
     { key:"moduleWriting", label:"Module 3 Score (e.g. Writing/Conversation)" },
     { key:"moduleSpeaking", label:"Module 4 Score (e.g. Speaking/Production)" },
+    { key:"testDate", label:"Test Date (Date Taken)", type:"date" },
     { key:"appearingDate", label:"Appearing Date", type:"date" },
   ]},
   { title: "Visa & Travel History", fields: [
@@ -1910,10 +2024,22 @@ const FIELD_GROUPS = [
   { title: "Sponsor Financial Capacity", fields: [
     { key:"savingsAmount", label:"Savings Account — Balance Available (BDT)" },
     { key:"savingsTime", label:"Savings Account — Held Since / Duration" },
+    { key:"savingsAmount2", label:"Savings Account #2 — Balance Available (BDT)" },
+    { key:"savingsTime2", label:"Savings Account #2 — Held Since / Duration" },
+    { key:"savingsAmount3", label:"Savings Account #3 — Balance Available (BDT)" },
+    { key:"savingsTime3", label:"Savings Account #3 — Held Since / Duration" },
     { key:"currentAccountAmount", label:"Current Account — Balance Available (BDT)" },
     { key:"currentAccountTime", label:"Current Account — Held Since / Duration" },
+    { key:"currentAccountAmount2", label:"Current Account #2 — Balance Available (BDT)" },
+    { key:"currentAccountTime2", label:"Current Account #2 — Held Since / Duration" },
+    { key:"currentAccountAmount3", label:"Current Account #3 — Balance Available (BDT)" },
+    { key:"currentAccountTime3", label:"Current Account #3 — Held Since / Duration" },
     { key:"fdAmount", label:"Fixed Deposit — Amount (BDT)" },
     { key:"fdTime", label:"Fixed Deposit — Held Since / Duration" },
+    { key:"fdAmount2", label:"Fixed Deposit #2 — Amount (BDT)" },
+    { key:"fdTime2", label:"Fixed Deposit #2 — Held Since / Duration" },
+    { key:"fdAmount3", label:"Fixed Deposit #3 — Amount (BDT)" },
+    { key:"fdTime3", label:"Fixed Deposit #3 — Held Since / Duration" },
     { key:"nationalSavingsAmount", label:"National Savings — Amount (BDT)" },
     { key:"nationalSavingsTime", label:"National Savings — Held Since / Duration" },
     { key:"rentalIncomeShop", label:"Rental Income: Shop", type:"checkbox" },
@@ -1933,10 +2059,10 @@ const FIELD_GROUPS = [
     { key:"docSalarySlip", label:"Salary/Pay Slip Certificate", type:"checkbox" },
     { key:"docEmployment", label:"Employment Certificate", type:"checkbox" },
     { key:"docTradeLicense", label:"Trade License", type:"checkbox" },
-    { key:"tradeLicenseGap", label:"Trade License — Gap (Duration)" },
+    { key:"tradeLicenseGap", label:"Trade License — Gap (Duration)", type:"select", options:["1-3 years","3-6 years","6+ years"] },
     { key:"docTin", label:"TIN Certificate", type:"checkbox" },
     { key:"docTax", label:"Tax Certificate", type:"checkbox" },
-    { key:"taxCertificateGap", label:"Tax Certificate — Gap (Years)" },
+    { key:"taxCertificateGap", label:"Tax Certificate — Gap (Duration)", type:"select", options:["1-3 years","3-6 years","6+ years"] },
     { key:"docProperty", label:"Property Documents", type:"checkbox" },
     { key:"docRental", label:"Rental Income Documents", type:"checkbox" },
     { key:"docOther", label:"Other Supporting Documents", type:"checkbox" },
