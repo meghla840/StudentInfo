@@ -1120,14 +1120,14 @@
         </div>
         <div class="field"><label>Overall Score</label><input type="text" name="overallScore"></div>
 
-        <div class="sub">Module-wise Scores</div>
+        <div class="sub" id="moduleSectionTitle">Module-wise Scores</div>
         <div class="row2">
-          <div class="field"><label>Listening</label><input type="text" name="moduleListening"></div>
-          <div class="field"><label>Reading</label><input type="text" name="moduleReading"></div>
+          <div class="field" id="moduleWrap1"><label id="moduleLabel1">Listening</label><input type="text" name="moduleListening"></div>
+          <div class="field" id="moduleWrap2"><label id="moduleLabel2">Reading</label><input type="text" name="moduleReading"></div>
         </div>
         <div class="row2">
-          <div class="field"><label>Writing</label><input type="text" name="moduleWriting"></div>
-          <div class="field"><label>Speaking</label><input type="text" name="moduleSpeaking"></div>
+          <div class="field" id="moduleWrap3"><label id="moduleLabel3">Writing</label><input type="text" name="moduleWriting"></div>
+          <div class="field" id="moduleWrap4"><label id="moduleLabel4">Speaking</label><input type="text" name="moduleSpeaking"></div>
         </div>
         <div class="field" id="appearingDateWrap" style="display:none;">
           <label>Appearing Date (Exam Date)</label><input type="date" name="appearingDate">
@@ -1522,6 +1522,48 @@ form.addEventListener('change', (e) => {
   }
 });
 
+// --- module-wise score labels, per test type ---
+const MODULE_LABELS = {
+  'IELTS':  ['Listening','Reading','Writing','Speaking'],
+  'TOEFL':  ['Listening','Reading','Writing','Speaking'],
+  'PTE':    ['Listening','Reading','Writing','Speaking'],
+  'Duolingo': ['Literacy','Comprehension','Conversation','Production'],
+  'Korean Language Proficiency (TOPIK)': ['Listening','Reading','Writing (TOPIK II)', null],
+};
+const moduleSectionTitle = document.getElementById('moduleSectionTitle');
+const moduleWraps = [1,2,3,4].map(n => document.getElementById('moduleWrap' + n));
+const moduleLabels = [1,2,3,4].map(n => document.getElementById('moduleLabel' + n));
+form.addEventListener('change', (e) => {
+  if (e.target.name === 'testTaken') {
+    const labels = MODULE_LABELS[e.target.value];
+    if (labels) {
+      moduleSectionTitle.style.display = '';
+      labels.forEach((lbl, i) => {
+        if (lbl) {
+          moduleWraps[i].style.display = '';
+          moduleLabels[i].textContent = lbl;
+        } else {
+          moduleWraps[i].style.display = 'none';
+        }
+      });
+    } else {
+      // MOI / Other / Not Taken / Expired / Appearing — no fixed modules
+      moduleSectionTitle.style.display = 'none';
+      moduleWraps.forEach(w => w.style.display = 'none');
+    }
+  }
+});
+
+// --- reset module-wise score labels back to default (Listening/Reading/Writing/Speaking, all visible) ---
+function resetModuleLabels(){
+  moduleSectionTitle.style.display = '';
+  const defaults = ['Listening','Reading','Writing','Speaking'];
+  defaults.forEach((lbl, i) => {
+    moduleWraps[i].style.display = '';
+    moduleLabels[i].textContent = lbl;
+  });
+}
+
 // --- travel history toggle ---
 const travelCountryWrap = document.getElementById('travelCountryWrap');
 const travelCountryListWrap = document.getElementById('travelCountryListWrap');
@@ -1622,6 +1664,7 @@ submitBtn.addEventListener('click', async () => {
     document.querySelectorAll('.choice.active, .choice.gold-active').forEach(c => c.classList.remove('active','gold-active'));
     financialFullWrap.style.display = 'none';
     appearingDateWrap.style.display = 'none';
+    resetModuleLabels();
     travelCountryWrap.style.display = 'none';
     travelCountryListWrap.style.display = 'none';
     tradeLicenseGapWrap.style.display = 'none';
@@ -1644,6 +1687,7 @@ resetBtn.addEventListener('click', () => {
   document.querySelectorAll('.choice.active, .choice.gold-active').forEach(c => c.classList.remove('active','gold-active'));
   financialFullWrap.style.display = 'none';
   appearingDateWrap.style.display = 'none';
+  resetModuleLabels();
   travelCountryWrap.style.display = 'none';
   travelCountryListWrap.style.display = 'none';
   tradeLicenseGapWrap.style.display = 'none';
@@ -1804,10 +1848,10 @@ const FIELD_GROUPS = [
   { title: "English Proficiency", fields: [
     { key:"testTaken", label:"Test Taken" },
     { key:"overallScore", label:"Overall Score" },
-    { key:"moduleListening", label:"Module — Listening" },
-    { key:"moduleReading", label:"Module — Reading" },
-    { key:"moduleWriting", label:"Module — Writing" },
-    { key:"moduleSpeaking", label:"Module — Speaking" },
+    { key:"moduleListening", label:"Module 1 Score (e.g. Listening/Literacy)" },
+    { key:"moduleReading", label:"Module 2 Score (e.g. Reading/Comprehension)" },
+    { key:"moduleWriting", label:"Module 3 Score (e.g. Writing/Conversation)" },
+    { key:"moduleSpeaking", label:"Module 4 Score (e.g. Speaking/Production)" },
     { key:"appearingDate", label:"Appearing Date", type:"date" },
   ]},
   { title: "Visa & Travel History", fields: [
