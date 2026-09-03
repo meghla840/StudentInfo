@@ -1087,7 +1087,15 @@
           </div>
         </div>
         <div class="field"><label>Current Employment & Duration</label><input type="text" name="currentEmployment"></div>
-        <div class="field"><label>Previous Employment & Duration (If Applicable)</label><input type="text" name="previousEmployment"></div>
+
+        <div id="prevEmploymentContainer">
+          <div class="field prev-employment-row"><label>Previous Employment & Duration (If Applicable)</label><input type="text" name="previousEmployment"></div>
+          <div class="field prev-employment-row" style="display:none;"><label>Previous Employment & Duration</label><input type="text" name="previousEmployment2"></div>
+          <div class="field prev-employment-row" style="display:none;"><label>Previous Employment & Duration</label><input type="text" name="previousEmployment3"></div>
+          <div class="field prev-employment-row" style="display:none;"><label>Previous Employment & Duration</label><input type="text" name="previousEmployment4"></div>
+        </div>
+        <button type="button" class="btn-outline" id="addPrevEmploymentBtn" style="margin:2px 0 14px;">+ Add Job Experience</button>
+
         <div class="field"><label>Relevant Training / Professional Certifications</label><input type="text" name="certifications"></div>
       </div>
     </details>
@@ -1103,14 +1111,26 @@
             <label class="choice"><input type="radio" name="testTaken" value="TOEFL">TOEFL</label>
             <label class="choice"><input type="radio" name="testTaken" value="Duolingo">Duolingo</label>
             <label class="choice"><input type="radio" name="testTaken" value="MOI">MOI</label>
+            <label class="choice"><input type="radio" name="testTaken" value="Korean Language Proficiency (TOPIK)">Korean (TOPIK)</label>
             <label class="choice"><input type="radio" name="testTaken" value="Other">Other</label>
             <label class="choice"><input type="radio" name="testTaken" value="Not Taken">Not Taken</label>
             <label class="choice"><input type="radio" name="testTaken" value="Expired">Expired</label>
+            <label class="choice"><input type="radio" name="testTaken" value="Appearing">Appearing</label>
           </div>
         </div>
+        <div class="field"><label>Overall Score</label><input type="text" name="overallScore"></div>
+
+        <div class="sub">Module-wise Scores</div>
         <div class="row2">
-          <div class="field"><label>Overall Score</label><input type="text" name="overallScore"></div>
-          <div class="field"><label>Module Scores</label><input type="text" name="moduleScores"></div>
+          <div class="field"><label>Listening</label><input type="text" name="moduleListening"></div>
+          <div class="field"><label>Reading</label><input type="text" name="moduleReading"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Writing</label><input type="text" name="moduleWriting"></div>
+          <div class="field"><label>Speaking</label><input type="text" name="moduleSpeaking"></div>
+        </div>
+        <div class="field" id="appearingDateWrap" style="display:none;">
+          <label>Appearing Date (Exam Date)</label><input type="date" name="appearingDate">
         </div>
       </div>
     </details>
@@ -1118,6 +1138,19 @@
     <details class="section">
       <summary data-num="1.4">Visa & Travel History <span class="chev">▶</span></summary>
       <div class="section-body">
+        <div class="field">
+          <label>Has the Applicant Traveled Abroad Before?</label>
+          <div class="choice-group" data-group="travelHistory">
+            <label class="choice"><input type="radio" name="travelHistory" value="Yes">Yes</label>
+            <label class="choice"><input type="radio" name="travelHistory" value="No">No</label>
+          </div>
+        </div>
+        <div class="field" id="travelCountryWrap" style="display:none;">
+          <label>How Many Countries Visited?</label><input type="number" min="0" name="countriesVisitedCount">
+        </div>
+        <div class="field" id="travelCountryListWrap" style="display:none;">
+          <label>Countries Visited (list)</label><textarea name="countriesVisitedList"></textarea>
+        </div>
         <div class="field">
           <label>Previous Visa Refusal or Study Abroad Experience</label>
           <div class="choice-group" data-group="visaRefusal">
@@ -1291,10 +1324,54 @@
     <details class="section">
       <summary data-num="3.2">Sponsor Financial Capacity <span class="chev">▶</span></summary>
       <div class="section-body">
+
+        <div class="sub">Savings Account</div>
         <div class="row2">
-          <div class="field"><label>Savings Deposit/Current (BDT)</label><input type="text" name="savingsDeposit"></div>
-          <div class="field"><label>Fixed Deposit (BDT)</label><input type="text" name="fixedDeposit"></div>
+          <div class="field"><label>Balance Available (BDT)</label><input type="text" name="savingsAmount"></div>
+          <div class="field"><label>Held Since / Duration</label><input type="text" name="savingsTime"></div>
         </div>
+
+        <div class="sub">Current Account</div>
+        <div class="row2">
+          <div class="field"><label>Balance Available (BDT)</label><input type="text" name="currentAccountAmount"></div>
+          <div class="field"><label>Held Since / Duration</label><input type="text" name="currentAccountTime"></div>
+        </div>
+
+        <div class="sub">Fixed Deposit (FD)</div>
+        <div class="row2">
+          <div class="field"><label>Amount (BDT)</label><input type="text" name="fdAmount"></div>
+          <div class="field"><label>Held Since / Duration</label><input type="text" name="fdTime"></div>
+        </div>
+
+        <div class="sub">National Savings Certificate</div>
+        <div class="row2">
+          <div class="field"><label>Amount (BDT)</label><input type="text" name="nationalSavingsAmount"></div>
+          <div class="field"><label>Held Since / Duration</label><input type="text" name="nationalSavingsTime"></div>
+        </div>
+
+        <div class="sub">Rental Income</div>
+        <div class="field">
+          <label>Source</label>
+          <div class="choice-group" data-group="rentalIncomeSource" data-multi="true">
+            <label class="choice"><input type="checkbox" name="rentalIncomeShop" value="Shop">Shop</label>
+            <label class="choice"><input type="checkbox" name="rentalIncomeHouse" value="House">House</label>
+            <label class="choice"><input type="checkbox" name="rentalIncomeLand" value="Land">Land</label>
+          </div>
+        </div>
+        <div class="field"><label>Rental Income Amount (BDT)</label><input type="text" name="rentalIncomeAmount"></div>
+
+        <div class="sub">Other Income</div>
+        <div class="field">
+          <label>Any Other Income?</label>
+          <div class="choice-group" data-group="otherIncomeFlag">
+            <label class="choice"><input type="radio" name="otherIncomeFlag" value="Yes">Yes</label>
+            <label class="choice"><input type="radio" name="otherIncomeFlag" value="No">No</label>
+          </div>
+        </div>
+        <div class="field" id="otherIncomeDetailWrap" style="display:none;">
+          <label>Specify the Income</label><input type="text" name="otherIncomeDetail">
+        </div>
+
         <div class="row2">
           <div class="field"><label>Property/Assets Value (BDT)</label><input type="text" name="propertyValue"></div>
           <div class="field"><label>Total Funds Available (BDT)</label><input type="text" name="totalFunds"></div>
@@ -1313,7 +1390,14 @@
           <label class="checklist-item"><input type="checkbox" name="docSalarySlip" value="1"><span class="check-box"></span><span class="check-label">Salary/Pay Slip Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docEmployment" value="1"><span class="check-box"></span><span class="check-label">Employment Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docTradeLicense" value="1"><span class="check-box"></span><span class="check-label">Trade License</span></label>
-          <label class="checklist-item"><input type="checkbox" name="docTin" value="1"><span class="check-box"></span><span class="check-label">TIN Certificate & Tax Documents</span></label>
+          <div class="field" id="tradeLicenseGapWrap" style="display:none;margin:2px 0 8px;">
+            <label>Trade License — Gap (Duration)</label><input type="text" name="tradeLicenseGap" placeholder="e.g. 2 years">
+          </div>
+          <label class="checklist-item"><input type="checkbox" name="docTin" value="1"><span class="check-box"></span><span class="check-label">TIN Certificate</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docTax" value="1"><span class="check-box"></span><span class="check-label">Tax Certificate</span></label>
+          <div class="field" id="taxCertificateGapWrap" style="display:none;margin:2px 0 8px;">
+            <label>Tax Certificate — Gap (Number of Years)</label><input type="number" min="0" step="1" name="taxCertificateGap">
+          </div>
           <label class="checklist-item"><input type="checkbox" name="docProperty" value="1"><span class="check-box"></span><span class="check-label">Property Documents</span></label>
           <label class="checklist-item"><input type="checkbox" name="docRental" value="1"><span class="check-box"></span><span class="check-label">Rental Income Documents</span></label>
           <label class="checklist-item"><input type="checkbox" name="docOther" value="1"><span class="check-box"></span><span class="check-label">Other Supporting Financial Documents</span></label>
@@ -1331,6 +1415,7 @@
           <div class="field"><label>Counsellor Name</label><input type="text" name="counsellorName"></div>
           <div class="field"><label>Assessment Date</label><input type="date" name="assessmentDate"></div>
         </div>
+        <div class="field"><label>Counsellor's Comment</label><textarea name="taxCertificateComment"></textarea></div>
       </div>
     </details>
 
@@ -1429,6 +1514,59 @@ form.addEventListener('change', (e) => {
   }
 });
 
+// --- Appearing test date toggle ---
+const appearingDateWrap = document.getElementById('appearingDateWrap');
+form.addEventListener('change', (e) => {
+  if (e.target.name === 'testTaken') {
+    appearingDateWrap.style.display = (e.target.value === 'Appearing') ? '' : 'none';
+  }
+});
+
+// --- travel history toggle ---
+const travelCountryWrap = document.getElementById('travelCountryWrap');
+const travelCountryListWrap = document.getElementById('travelCountryListWrap');
+form.addEventListener('change', (e) => {
+  if (e.target.name === 'travelHistory') {
+    const show = e.target.value === 'Yes';
+    travelCountryWrap.style.display = show ? '' : 'none';
+    travelCountryListWrap.style.display = show ? '' : 'none';
+  }
+});
+
+// --- trade license / tax certificate gap toggles ---
+const tradeLicenseGapWrap = document.getElementById('tradeLicenseGapWrap');
+const taxCertificateGapWrap = document.getElementById('taxCertificateGapWrap');
+form.addEventListener('change', (e) => {
+  if (e.target.name === 'docTradeLicense') {
+    tradeLicenseGapWrap.style.display = e.target.checked ? '' : 'none';
+  }
+  if (e.target.name === 'docTax') {
+    taxCertificateGapWrap.style.display = e.target.checked ? '' : 'none';
+  }
+});
+
+// --- other income toggle ---
+const otherIncomeDetailWrap = document.getElementById('otherIncomeDetailWrap');
+form.addEventListener('change', (e) => {
+  if (e.target.name === 'otherIncomeFlag') {
+    otherIncomeDetailWrap.style.display = (e.target.value === 'Yes') ? '' : 'none';
+  }
+});
+
+// --- add multiple job experience rows ---
+const prevEmploymentRows = Array.from(document.querySelectorAll('#prevEmploymentContainer .prev-employment-row'));
+let prevEmploymentShown = 1;
+const addPrevEmploymentBtn = document.getElementById('addPrevEmploymentBtn');
+addPrevEmploymentBtn.addEventListener('click', () => {
+  if (prevEmploymentShown < prevEmploymentRows.length) {
+    prevEmploymentRows[prevEmploymentShown].style.display = '';
+    prevEmploymentShown++;
+  }
+  if (prevEmploymentShown >= prevEmploymentRows.length) {
+    addPrevEmploymentBtn.style.display = 'none';
+  }
+});
+
 function showToast(msg, isErr){
   toast.textContent = msg;
   toast.className = 'toast show' + (isErr ? ' err' : '');
@@ -1482,6 +1620,16 @@ submitBtn.addEventListener('click', async () => {
     showToast('✓ Saved — sent to Google Sheet', false);
     form.reset();
     document.querySelectorAll('.choice.active, .choice.gold-active').forEach(c => c.classList.remove('active','gold-active'));
+    financialFullWrap.style.display = 'none';
+    appearingDateWrap.style.display = 'none';
+    travelCountryWrap.style.display = 'none';
+    travelCountryListWrap.style.display = 'none';
+    tradeLicenseGapWrap.style.display = 'none';
+    taxCertificateGapWrap.style.display = 'none';
+    otherIncomeDetailWrap.style.display = 'none';
+    prevEmploymentRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+    prevEmploymentShown = 1;
+    addPrevEmploymentBtn.style.display = '';
     goToPage(1);
   }catch(err){
     showToast('✗ Could not send — check internet/URL', true);
@@ -1495,6 +1643,15 @@ resetBtn.addEventListener('click', () => {
   form.reset();
   document.querySelectorAll('.choice.active, .choice.gold-active').forEach(c => c.classList.remove('active','gold-active'));
   financialFullWrap.style.display = 'none';
+  appearingDateWrap.style.display = 'none';
+  travelCountryWrap.style.display = 'none';
+  travelCountryListWrap.style.display = 'none';
+  tradeLicenseGapWrap.style.display = 'none';
+  taxCertificateGapWrap.style.display = 'none';
+  otherIncomeDetailWrap.style.display = 'none';
+  prevEmploymentRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+  prevEmploymentShown = 1;
+  addPrevEmploymentBtn.style.display = '';
   document.querySelectorAll('.prog-state').forEach(sel => fillSelect(sel, [], 'Select country first'));
   document.querySelectorAll('.prog-city').forEach(sel => fillSelect(sel, [], 'Select country first'));
   goToPage(1);
@@ -1639,14 +1796,24 @@ const FIELD_GROUPS = [
     { key:"workExp", label:"Relevant Work Experience" },
     { key:"currentEmployment", label:"Current Employment & Duration" },
     { key:"previousEmployment", label:"Previous Employment & Duration (If Applicable)" },
+    { key:"previousEmployment2", label:"Previous Employment & Duration #2" },
+    { key:"previousEmployment3", label:"Previous Employment & Duration #3" },
+    { key:"previousEmployment4", label:"Previous Employment & Duration #4" },
     { key:"certifications", label:"Training / Certifications" },
   ]},
   { title: "English Proficiency", fields: [
     { key:"testTaken", label:"Test Taken" },
     { key:"overallScore", label:"Overall Score" },
-    { key:"moduleScores", label:"Module Scores" },
+    { key:"moduleListening", label:"Module — Listening" },
+    { key:"moduleReading", label:"Module — Reading" },
+    { key:"moduleWriting", label:"Module — Writing" },
+    { key:"moduleSpeaking", label:"Module — Speaking" },
+    { key:"appearingDate", label:"Appearing Date", type:"date" },
   ]},
   { title: "Visa & Travel History", fields: [
+    { key:"travelHistory", label:"Traveled Abroad Before?" },
+    { key:"countriesVisitedCount", label:"Number of Countries Visited" },
+    { key:"countriesVisitedList", label:"Countries Visited", type:"textarea" },
     { key:"visaRefusal", label:"Previous Refusal / Study Abroad" },
     { key:"visaDetails", label:"Country, Year & Reason", type:"textarea" },
   ]},
@@ -1697,8 +1864,20 @@ const FIELD_GROUPS = [
     { key:"sponsor2Income", label:"Secondary Income (BDT)" },
   ]},
   { title: "Sponsor Financial Capacity", fields: [
-    { key:"savingsDeposit", label:"Savings Deposit/Current (BDT)" },
-    { key:"fixedDeposit", label:"Fixed Deposit (BDT)" },
+    { key:"savingsAmount", label:"Savings Account — Balance Available (BDT)" },
+    { key:"savingsTime", label:"Savings Account — Held Since / Duration" },
+    { key:"currentAccountAmount", label:"Current Account — Balance Available (BDT)" },
+    { key:"currentAccountTime", label:"Current Account — Held Since / Duration" },
+    { key:"fdAmount", label:"Fixed Deposit — Amount (BDT)" },
+    { key:"fdTime", label:"Fixed Deposit — Held Since / Duration" },
+    { key:"nationalSavingsAmount", label:"National Savings — Amount (BDT)" },
+    { key:"nationalSavingsTime", label:"National Savings — Held Since / Duration" },
+    { key:"rentalIncomeShop", label:"Rental Income: Shop", type:"checkbox" },
+    { key:"rentalIncomeHouse", label:"Rental Income: House", type:"checkbox" },
+    { key:"rentalIncomeLand", label:"Rental Income: Land", type:"checkbox" },
+    { key:"rentalIncomeAmount", label:"Rental Income Amount (BDT)" },
+    { key:"otherIncomeFlag", label:"Other Income?" },
+    { key:"otherIncomeDetail", label:"Other Income — Specify" },
     { key:"propertyValue", label:"Property/Assets Value (BDT)" },
     { key:"totalFunds", label:"Total Funds Available (BDT)" },
   ]},
@@ -1710,7 +1889,10 @@ const FIELD_GROUPS = [
     { key:"docSalarySlip", label:"Salary/Pay Slip Certificate", type:"checkbox" },
     { key:"docEmployment", label:"Employment Certificate", type:"checkbox" },
     { key:"docTradeLicense", label:"Trade License", type:"checkbox" },
-    { key:"docTin", label:"TIN Certificate & Tax Documents", type:"checkbox" },
+    { key:"tradeLicenseGap", label:"Trade License — Gap (Duration)" },
+    { key:"docTin", label:"TIN Certificate", type:"checkbox" },
+    { key:"docTax", label:"Tax Certificate", type:"checkbox" },
+    { key:"taxCertificateGap", label:"Tax Certificate — Gap (Years)" },
     { key:"docProperty", label:"Property Documents", type:"checkbox" },
     { key:"docRental", label:"Rental Income Documents", type:"checkbox" },
     { key:"docOther", label:"Other Supporting Documents", type:"checkbox" },
@@ -1719,6 +1901,7 @@ const FIELD_GROUPS = [
   { title: "Counsellor & Assessment", fields: [
     { key:"counsellorName", label:"Counsellor Name" },
     { key:"assessmentDate", label:"Assessment Date", type:"date" },
+    { key:"taxCertificateComment", label:"Counsellor's Comment", type:"textarea" },
   ]},
 ];
 
