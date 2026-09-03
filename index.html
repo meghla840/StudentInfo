@@ -1380,10 +1380,21 @@
         <button type="button" class="btn-outline" id="addFdBtn" style="margin:2px 0 14px;">+ Add Fixed Deposit</button>
 
         <div class="sub">National Savings Certificate</div>
-        <div class="row2">
-          <div class="field"><label>Amount (BDT)</label><input type="text" name="nationalSavingsAmount"></div>
-          <div class="field"><label>Held Since / Duration</label><input type="text" name="nationalSavingsTime"></div>
+        <div id="nationalSavingsContainer">
+          <div class="row2 national-savings-row">
+            <div class="field"><label>Amount (BDT)</label><input type="text" name="nationalSavingsAmount"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="nationalSavingsTime"></div>
+          </div>
+          <div class="row2 national-savings-row" style="display:none;">
+            <div class="field"><label>Amount (BDT)</label><input type="text" name="nationalSavingsAmount2"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="nationalSavingsTime2"></div>
+          </div>
+          <div class="row2 national-savings-row" style="display:none;">
+            <div class="field"><label>Amount (BDT)</label><input type="text" name="nationalSavingsAmount3"></div>
+            <div class="field"><label>Held Since / Duration</label><input type="text" name="nationalSavingsTime3"></div>
+          </div>
         </div>
+        <button type="button" class="btn-outline" id="addNationalSavingsBtn" style="margin:2px 0 14px;">+ Add National Savings Certificate</button>
 
         <div class="sub">Rental Income</div>
         <div class="field">
@@ -1423,6 +1434,7 @@
           <label class="checklist-item"><input type="checkbox" name="docSponsorBank" value="1"><span class="check-box"></span><span class="check-label">Sponsor Bank Statement</span></label>
           <label class="checklist-item"><input type="checkbox" name="docSolvency" value="1"><span class="check-box"></span><span class="check-label">Bank Solvency Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docFixedDeposit" value="1"><span class="check-box"></span><span class="check-label">Fixed Deposit Certificate</span></label>
+          <label class="checklist-item"><input type="checkbox" name="docNationalSavings" value="1"><span class="check-box"></span><span class="check-label">National Savings Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docSalarySlip" value="1"><span class="check-box"></span><span class="check-label">Salary/Pay Slip Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docEmployment" value="1"><span class="check-box"></span><span class="check-label">Employment Certificate</span></label>
           <label class="checklist-item"><input type="checkbox" name="docTradeLicense" value="1"><span class="check-box"></span><span class="check-label">Trade License</span></label>
@@ -1441,6 +1453,7 @@
             <label>Tax Certificate — Gap (Duration)</label>
             <select name="taxCertificateGap">
               <option value="">Select duration</option>
+              <option value="0 years">0 years</option>
               <option value="1-3 years">1-3 years</option>
               <option value="3-6 years">3-6 years</option>
               <option value="6+ years">6+ years</option>
@@ -1702,6 +1715,20 @@ addFdBtn.addEventListener('click', () => {
   }
 });
 
+// --- add multiple national savings certificate rows ---
+const nationalSavingsRows = Array.from(document.querySelectorAll('#nationalSavingsContainer .national-savings-row'));
+let nationalSavingsShown = 1;
+const addNationalSavingsBtn = document.getElementById('addNationalSavingsBtn');
+addNationalSavingsBtn.addEventListener('click', () => {
+  if (nationalSavingsShown < nationalSavingsRows.length) {
+    nationalSavingsRows[nationalSavingsShown].style.display = '';
+    nationalSavingsShown++;
+  }
+  if (nationalSavingsShown >= nationalSavingsRows.length) {
+    addNationalSavingsBtn.style.display = 'none';
+  }
+});
+
 function showToast(msg, isErr){
   toast.textContent = msg;
   toast.className = 'toast show' + (isErr ? ' err' : '');
@@ -1776,6 +1803,9 @@ submitBtn.addEventListener('click', async () => {
     fdRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
     fdShown = 1;
     addFdBtn.style.display = '';
+    nationalSavingsRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+    nationalSavingsShown = 1;
+    addNationalSavingsBtn.style.display = '';
     goToPage(1);
   }catch(err){
     showToast('✗ Could not send — check internet/URL', true);
@@ -1809,6 +1839,9 @@ resetBtn.addEventListener('click', () => {
   fdRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
   fdShown = 1;
   addFdBtn.style.display = '';
+  nationalSavingsRows.forEach((row, i) => { row.style.display = i === 0 ? '' : 'none'; });
+  nationalSavingsShown = 1;
+  addNationalSavingsBtn.style.display = '';
   document.querySelectorAll('.prog-state').forEach(sel => fillSelect(sel, [], 'Select country first'));
   document.querySelectorAll('.prog-city').forEach(sel => fillSelect(sel, [], 'Select country first'));
   goToPage(1);
